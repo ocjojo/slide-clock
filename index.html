@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <title>Slide Clock</title>
+    <meta
+      name="Description"
+      content="Demo of a digital slide clock with CSS and vanilla JS."
+    />
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+        min-height: 100vh;
+        min-width: 100vw;
+        background: -webkit-linear-gradient(135deg, #00bcd4, #ffeb3b);
+        background: linear-gradient(-45deg, #00bcd4, #ffeb3b);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        font-size: 10px;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+      body:before,
+      body:after {
+        content: "";
+        display: block;
+        opacity: 0.8;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+        z-index: 1;
+        position: absolute;
+        width: 100vw;
+        height: calc(50vh - 1.5rem);
+        left: 0;
+        background: -webkit-linear-gradient(135deg, #00bcd4, #ffeb3b);
+        background: linear-gradient(-45deg, #00bcd4, #ffeb3b);
+        background-size: 100vw 100vh;
+        background-attachment: fixed;
+      }
+      body:before {
+        top: 0;
+      }
+      body:after {
+        bottom: 0;
+      }
+      .clock {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        font-size: 48px;
+        font-size: 3rem;
+        height: 1em;
+        line-height: 1em;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        -webkit-transition: -webkit-transform 0.3s ease;
+        transition: -webkit-transform 0.3s ease;
+        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+      span {
+        padding: 0 1px;
+      }
+      .made-by {
+        position: absolute;
+        font-size: 1rem;
+        z-index: 2;
+        bottom: 1em;
+        right: 1em;
+        text-decoration: none;
+        font-family: monospace;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      tabindex="0"
+      aria-label="clock"
+      role="main"
+      aria-roledescription="with a vertical slide of numbers for each digit."
+      aria-hidden="true"
+      class="clock"
+    >
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+      </ul>
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+      </ul>
+      <span>:</span>
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+      </ul>
+      <span>:</span>
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+      </ul>
+    </div>
+
+    <a
+      target="_blank"
+      rel="noopener"
+      href="https://github.com/ocjojo/slide-clock"
+      class="made-by"
+      ><span aria-label="code">&lt;&gt;</span> by Lukas</a
+    >
+
+    <script>
+      const ul = document.querySelectorAll("ul");
+      let last;
+      function setClock() {
+        const time = new Date()
+          .toTimeString()
+          .slice(0, 8)
+          .split(":")
+          .join("");
+
+        if (time == last) return;
+
+        time.split("").forEach((val, index) => {
+          ul[index].style.transform = `translateY(-${val * 1}em)`;
+        });
+        last = time;
+        setTimeout(setClock, 999);
+      }
+      setClock();
+    </script>
+  </body>
+</html>
